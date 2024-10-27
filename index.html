@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Animation</title>
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(25, 25, 25);
+            color: crimson;
+            font-family: Arial, sans-serif;
+        }
+
+        .slider-container {
+            border: 3px solid crimson;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #SliderValue {
+            font-size: 50px;
+            display: flex;
+            gap: 2px;
+        }
+
+        .animation {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideIn 0.5s forwards ease-in-out;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .holder-animation {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="slider-container">
+        <div id="SliderValue"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var sliderCounter = 0;
+            var sliderContent = [
+                "Happy",
+                "58th",
+                "Monthsarry",
+                "my pretty",
+                "baby",
+                "Iloveyou",
+                "You are",
+                "the best",
+                "Thank u",
+                "<3",
+                "hehehe mwah",
+            ];
+
+            var sliderValue = document.querySelector("#SliderValue");
+
+            function slider() {
+                if (sliderCounter >= sliderContent.length) {
+                    sliderCounter = 0;
+                }
+
+                sliderValue.innerHTML = "";
+                sliderValue.classList.remove("holder-animation");
+                void sliderValue.offsetWidth; 
+                sliderValue.classList.add("holder-animation");
+
+                for (let i = 0; i < sliderContent[sliderCounter].length; i++) {
+                    let letterDiv = document.createElement("div");
+                    letterDiv.innerHTML = sliderContent[sliderCounter][i];
+
+ 
+                    if (letterDiv.innerHTML === " ") {
+                        letterDiv.innerHTML = "&nbsp;";
+                    }
+
+                    letterDiv.classList.add("animation");
+                    letterDiv.style.animationDelay = (i / 10) + "s";
+                    sliderValue.appendChild(letterDiv);
+                }
+                sliderCounter++;
+            }
+
+ 
+            slider();
+            setInterval(slider, 2000); 
+        });
+    </script>
+</body>
+</html>
